@@ -27,7 +27,6 @@ public class GameScreen implements Screen {
     private static final int RIGHT = 1;
     private static final int UP = 2;
     private static final int DOWN = 3;
-    private int prevX, prevY;
     private int direction = rand.nextInt(4);
     private int prevDirection = direction;
     boolean isAppleEaten = false;
@@ -136,21 +135,52 @@ public class GameScreen implements Screen {
             isAppleEaten = true;
             if (snakeChains.get(0).x >= windowWidth/2 && snakeChains.get(0).y >= windowHeight/2) { //Q1
                 apple.x = rand.nextInt(windowWidth/2);
-                apple.y = rand.nextInt(windowHeight/2);
+                apple.y = rand.nextInt(windowHeight);
+
+                if (apple.x + 16 > windowWidth) {
+                    apple.x = windowWidth - 16;
+                }
+                if (apple.y + 16 > windowHeight) {
+                    apple.y = windowHeight - 16;
+                }
             }
             else if (snakeChains.get(0).x < windowWidth/2 && snakeChains.get(0).y >= windowHeight/2) { //Q2
                 apple.x = rand.nextInt(windowWidth/2) + windowWidth/2;
-                apple.y = rand.nextInt(windowHeight/2);
+                apple.y = rand.nextInt(windowHeight);
+
+                if (apple.x + 16 > windowWidth) {
+                    apple.x = windowWidth - 16;
+                }
+                if (apple.y + 16 > windowHeight) {
+                    apple.y = windowHeight - 16;
+                }
             }
             else if (snakeChains.get(0).x < windowWidth/2 && snakeChains.get(0).y < windowHeight/2) { //Q3
                 apple.x = rand.nextInt(windowWidth/2) + windowWidth/2;
-                apple.y = rand.nextInt(windowHeight/2) + windowHeight/2;
+                apple.y = rand.nextInt(windowHeight);
+
+                if (apple.x + 16 > windowWidth) {
+                    apple.x = windowWidth - 16;
+                }
+                if (apple.y + 16 > windowHeight) {
+                    apple.y = windowHeight - 16;
+                }
             }
             else if (snakeChains.get(0).x >= windowWidth/2 && snakeChains.get(0).y < windowHeight/2) { //Q4
                 apple.x = rand.nextInt(windowWidth/2);
-                apple.y = rand.nextInt(windowHeight/2) + windowHeight/2;
+                apple.y = rand.nextInt(windowHeight);
+
+                if (apple.x + 16 > windowWidth) {
+                    apple.x = windowWidth - 16;
+                }
+                if (apple.y + 16 > windowHeight) {
+                    apple.y = windowHeight - 16;
+                }
             }
 
+            spawnSnakeBody();
+            spawnSnakeBody();
+            spawnSnakeBody();
             spawnSnakeBody();
         }
 
@@ -169,7 +199,7 @@ public class GameScreen implements Screen {
 
         move();
 
-        if (snakeChains.get(0).x < 0 || snakeChains.get(0).x > windowWidth || snakeChains.get(0).y < 0 || snakeChains.get(0).y > windowHeight) {
+        if (snakeChains.get(0).x < 0 || snakeChains.get(0).x + 16 > windowWidth || snakeChains.get(0).y < 0 || snakeChains.get(0).y + 16 > windowHeight) {
             game.setScreen(new MainMenuScreen(game));
         }
     }
